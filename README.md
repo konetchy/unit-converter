@@ -2,29 +2,25 @@
 
 Unit Converter is a PHP library that makes unit converting a fairly simple an intuitive process.
 
-[![Build Status](https://travis-ci.org/skoyah/unit-converter.svg?branch=master)](https://travis-ci.org/skoyah/unit-converter)
-[![Latest Stable Version](https://poser.pugx.org/skoyah/unit-converter/v/stable)](https://packagist.org/packages/skoyah/unit-converter)
-[![License](https://poser.pugx.org/skoyah/unit-converter/license)](https://packagist.org/packages/skoyah/unit-converter)
-[![StyleCI](https://github.styleci.io/repos/154382621/shield?branch=master)](https://github.styleci.io/repos/154382621)
-___
+Project was forked from the skyoah/unit-converter library.
+
 ## Table of Contents
 
 1. [Installation](#installation)
 2. [Basic Usage](#basic-usage)
 3. [Support](#support)
 4. [Configuration](#configuration)
-5. [Code of Conduct](#code-of-conduct)
 6. [License](#license)
 
 ___
 ## Installation
 ```bash
-$ composer require skoyah/unit-converter
+$ composer require konetchy/unit-converter
 ```
 
 ## Basic Usage
 ### Namespacing
-The Unit Converter library is under ```Skoyah\Converter``` namespace.
+The Unit Converter library is under ```Konetchy\Converter``` namespace.
 
 Once you have installed the Unit Converter library, converting from one unit of measurement to another is really simple.
 
@@ -35,7 +31,7 @@ Next, all you need is to call a ```to()``` method and pass in the parameter for 
 
 ### Example conversion:
 ```php
-use Skoyah\Converter\Mass;
+use Konetchy\Converter\Mass;
 
 $mass = new Mass(1, 'kg');
 echo $mass->to('pounds'); // '2.20462262'
@@ -57,7 +53,6 @@ echo $mass->to('lbs', 2); // '2.20'
 Currently, the Unit Converter supports the following types:
 
 * [Mass](#mass-units)
-* [Temperature](#temperature-units)
 * [Length](#length-units)
 * [Pressure](#pressure-units)
 * [Area](#area-units) - <em><strong>New</strong></em>
@@ -79,13 +74,6 @@ For consistency, it is __recommended__ to use lowercase letters, but if you pref
 |*milligrams*|     *mg*|
 |*pounds*    |    *lbs*|
 |*onces*     |     *oz*|
-
-### Temperature units
-| long       | short   |
-| :--------- | :------ |
-|*kelvin*    |      *k*|
-|*celsius*   |      *c*|
-|*fahrenheit*|      *f*|
 
 ### Length units
 | long           | short   |
@@ -121,8 +109,6 @@ For consistency, it is __recommended__ to use lowercase letters, but if you pref
 |*square feet*       |    *ft2*|
 |*square yards*      |    *yd2*|
 
-## Code of Conduct
-In order to ensure that the community is welcoming to all, please review and abide by the [Code of Conduct](https://github.com/skoyah/unit-converter/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
-Unit Converter is released under the MIT Licence. Read the [license](https://github.com/skoyah/unit-converter/blob/master/LICENSE.md) file for more details.
+Unit Converter is released under the MIT Licence. Read the [license](https://github.com/konetchy/unit-converter/blob/master/LICENSE.md) file for more details.

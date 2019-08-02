@@ -13,12 +13,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "João Santos",
-            "email": "joaoecoceanus@gmail.com"
-        },
-        {
             "name": "Alex Konetchy",
             "email": "konetchy@gmail.com"
+        },
+        {
+            "name": "João Santos",
+            "email": "joaoecoceanus@gmail.com"
         }
     ],
     "autoload": {
