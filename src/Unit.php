@@ -1,29 +1,16 @@
 <?php
 
-namespace Skoyah\Converter;
+namespace Konetchy\Converter;
 
-use Skoyah\Converter\Exceptions\InvalidUnitException;
+use Konetchy\Converter\Exception\InvalidUnitException;
+use InvalidArgumentException;
 
 abstract class Unit
 {
     /**
-     * Array of convertion formulas.
-     *
-     * @var array $formulas
-     */
-    protected $formulas;
-
-    /**
-     * Array of units and its aliases.
-     *
-     * @var array $aliases
-     */
-    protected $aliases;
-
-    /**
      * The unit quantity.
      *
-     * @var int $quantity
+     * @var float $quantity
      */
     protected $quantity;
 
@@ -37,74 +24,40 @@ abstract class Unit
     /**
      * The base unit value used for all conversions.
      *
-     * @var int $base
+     * @var float $base
      */
     protected $base;
 
-    /**
-     * Sets the core properties.
-     *
-     * @param integer $quantity
-     * @param string $unit
-     */
-    public function __construct($quantity, $unit)
+    public function __construct(float $quantity, string $unit)
     {
-        $this->loadConfigFile();
         $this->quantity = $this->validateQuantity($quantity);
         $this->unit = $this->validateUnit($unit);
         $this->base = $this->calculateBaseUnit();
     }
 
-    /**
-     * Gets the configuration settings for the specified unit type.
-     */
-    private function loadConfigFile()
-    {
-        $config = require __DIR__ . "/config/{$this->configKey}.php";
-
-        $this->aliases = $config['aliases'];
-        $this->formulas = $config['formulas'];
-    }
-
-    /**
-     * Validates and formats the unit type provided during instantiation.
-     *
-     * @param string $unit
-     * @return string
-     */
-    private function validateUnit($unit)
+    private function validateUnit(string $unit): string
     {
         $unit = strtolower($unit);
 
         if (!$this->isAlias($unit) && !array_key_exists($unit, $this->formulas)) {
-            throw new InvalidUnitException(sprintf('Unknown unit type: [%s] in [%s.php] configuration file.', $unit, $this->configKey));
+            throw new InvalidUnitException(sprintf('Unknown unit type: [%s] in class.', $unit));
         }
 
         return $this->isAlias($unit) ? $this->aliases[$unit] : $unit;
     }
 
-    /**
-     * Validates the quantity provided during instantiation.
-     *
-     * @param integer $quantity
-     * @return integer $quantity
-     */
-    private function validateQuantity($quantity)
+    private function validateQuantity(float $quantity): float
     {
-        if (!is_int($quantity) && !is_float($quantity) || $quantity < 0) {
-            throw new \InvalidArgumentException(sprintf('The quantity must be a positive number: %s given (%s).', gettype($quantity), $quantity));
+        if ($quantity < 0) {
+            throw new InvalidArgumentException(
+                sprintf('The quantity must be a positive number: given (%s).', $quantity)
+            );
         }
 
         return $quantity;
     }
 
-    /**
-     * Executes the convertion.
-     *
-     * @param string $unit
-     * @return integer|float
-     */
-    public function to($unit, $precision = null)
+    public function to(string $unit, int $precision = null): float
     {
         if ($this->isAlias($unit)) {
             $unit = $this->aliases[$unit];
@@ -113,39 +66,21 @@ abstract class Unit
         return $this->calculate($unit, $precision);
     }
 
-    /**
-     * Sets the unit to be used for all conversions.
-     *
-     * @return integer|float
-     */
-    private function calculateBaseUnit()
+    private function calculateBaseUnit(): float
     {
         if (is_callable($this->formulas[$this->unit])) {
             return $this->formulas[$this->unit]($this->quantity, true);
         }
 
-        return $this->quantity * $this->formulas[$this->unit];
+        return (float) $this->quantity * $this->formulas[$this->unit];
     }
 
-    /**
-     * Verifies if intended unit belongs has an abbreviation.
-     *
-     * @param string $unit
-     * @return boolean
-     */
-    private function isAlias($unit)
+    private function isAlias(string $unit): bool
     {
         return array_key_exists($unit, $this->aliases);
     }
 
-    /**
-     * Calculates the convertion.
-     *
-     * @param string $unit
-     * @param integer|null $precision
-     * @return integer|float
-     */
-    private function calculate($unit, $precision)
+    private function calculate(string $unit, int $precision = null): float
     {
         if (is_callable($this->formulas[$unit])) {
             return $this->formulas[$unit]($this->base);
@@ -155,18 +90,14 @@ abstract class Unit
             return round($this->base / $this->formulas[$unit], $precision, PHP_ROUND_HALF_UP);
         }
 
-        return $this->base / $this->formulas[$unit];
+        return (float) $this->base / $this->formulas[$unit];
     }
 
     /**
-     * Gets the base unit to be used on convertions for the current unit type.
-     *
-     * @return string
+     * @deprecated
      */
     public function base()
     {
-        $bases = require 'config/bases.php';
-
-        return $bases[$this->configKey];
+        return $this->baseUnit;
     }
 }

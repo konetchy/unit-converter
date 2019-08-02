@@ -1,6 +1,6 @@
 {
-    "name": "skoyah/unit-converter",
-    "description": "A simple tool for converting units of measurement.",
+    "name": "konetchy/unit-converter",
+    "description": "A simple tool for converting units of measurement. Forked from skoyah/unit-converter",
     "keywords": [
         "php", "converter", "unit-converter"
     ],
@@ -15,11 +15,15 @@
         {
             "name": "João Santos",
             "email": "joaoecoceanus@gmail.com"
+        },
+        {
+            "name": "Alex Konetchy",
+            "email": "konetchy@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Skoyah\\Converter\\": "src/"
+            "Konetchy\\Converter\\": "src/"
         }
     },
     "minimum-stability": "dev"

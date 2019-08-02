@@ -1,8 +1,8 @@
 <?php
 
-use Skoyah\Converter\Mass;
+use Konetchy\Converter\Mass;
 use PHPUnit\Framework\TestCase;
-use Skoyah\Converter\Exceptions\InvalidUnitException;
+use Konetchy\Converter\Exception\InvalidUnitException;
 
 class UnitTest extends TestCase
 {
@@ -36,7 +36,7 @@ class UnitTest extends TestCase
     /** @test */
     public function it_throws_an_exception_when_trying_to_set_a_string_quantity()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
         $mass = new Mass('foo', 'kg');
     }
 

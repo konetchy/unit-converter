@@ -1,6 +1,6 @@
 <?php
 
-use Skoyah\Converter\Area;
+use Konetchy\Converter\Area;
 use PHPUnit\Framework\TestCase;
 
 class AreaConvertionTest extends TestCase

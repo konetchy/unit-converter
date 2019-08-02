@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Skoyah\Converter\Mass;
+use Konetchy\Converter\Mass;
 
 class MassConvertionTest extends TestCase
 {

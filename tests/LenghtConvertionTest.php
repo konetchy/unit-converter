@@ -1,6 +1,6 @@
 <?php
 
-use Skoyah\Converter\Length;
+use Konetchy\Converter\Length;
 use PHPUnit\Framework\TestCase;
 
 class LenghtConvertionTest extends TestCase
