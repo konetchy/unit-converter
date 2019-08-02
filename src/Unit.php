@@ -93,9 +93,6 @@ abstract class Unit
         return (float) $this->base / $this->formulas[$unit];
     }
 
-    /**
-     * @deprecated
-     */
     public function base()
     {
         return $this->baseUnit;

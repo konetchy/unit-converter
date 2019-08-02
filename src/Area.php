@@ -4,25 +4,33 @@ namespace Konetchy\Converter;
 
 class Area extends Unit
 {
+    const MM = 'mm2';
+    const CM = 'cm2';
+    const M = 'm2';
+    const KM = 'km2';
+    const IN = 'in2';
+    const FT = 'ft2';
+    const YD = 'yd2';
+
     protected $baseUnit = 'square meters';
 
     protected $aliases = [
-        'square millimeters' => 'mm2',
-        'square centimeters' => 'cm2',
-        'square meters' => 'm2',
-        'square kilometers' => 'km2',
-        'square inches' => 'in2',
-        'square feet' => 'ft2',
-        'square yards' => 'yd2',
+        'square millimeters' => self::MM,
+        'square centimeters' => self::CM,
+        'square meters' => self::M,
+        'square kilometers' => self::KM,
+        'square inches' => self::IN,
+        'square feet' => self::FT,
+        'square yards' => self::YD,
     ];
 
     protected $formulas = [
-        'mm2' => 0.000001,
-        'cm2' => 0.0001,
-        'm2' => 1,
-        'km2' => 1000000,
-        'in2' => 0.000645,
-        'ft2' => 0.092903,
-        'yd2' => 0.836127,
+        self::MM => 0.000001,
+        self::CM => 0.0001,
+        self::M => 1,
+        self::KM => 1000000,
+        self::IN => 0.000645,
+        self::FT => 0.092903,
+        self::YD => 0.836127,
     ];
 }
