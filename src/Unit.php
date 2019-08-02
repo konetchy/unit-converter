@@ -35,6 +35,25 @@ abstract class Unit
         $this->base = $this->calculateBaseUnit();
     }
 
+    public function to(string $unit, int $precision = null): float
+    {
+        if ($this->isAlias($unit)) {
+            $unit = $this->aliases[$unit];
+        }
+
+        return $this->calculate($unit, $precision);
+    }
+
+    public function base()
+    {
+        return $this->baseUnit;
+    }
+
+    public function getUnits(bool $longform = false): array
+    {
+        return $longform ? array_keys($this->aliases) : array_values($this->aliases);
+    }
+
     private function validateUnit(string $unit): string
     {
         $unit = strtolower($unit);
@@ -55,15 +74,6 @@ abstract class Unit
         }
 
         return $quantity;
-    }
-
-    public function to(string $unit, int $precision = null): float
-    {
-        if ($this->isAlias($unit)) {
-            $unit = $this->aliases[$unit];
-        }
-
-        return $this->calculate($unit, $precision);
     }
 
     private function calculateBaseUnit(): float
@@ -91,10 +101,5 @@ abstract class Unit
         }
 
         return (float) $this->base / $this->formulas[$unit];
-    }
-
-    public function base()
-    {
-        return $this->baseUnit;
     }
 }
